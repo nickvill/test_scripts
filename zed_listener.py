@@ -6,7 +6,7 @@ class zed_listener:
     
     def __init__(self):
 
-        self.sub = rospy.Subscriber('/zed/depth/depth_registered', PointCloud2, self.callback)
+        self.sub = rospy.Subscriber('/zed/point_cloud/cloud_registered', PointCloud2, self.callback)
 
         self.pub = rospy.Publisher('depth', PointCloud2, queue_size=5)
         
