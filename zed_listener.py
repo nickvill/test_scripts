@@ -13,6 +13,7 @@ class zed_listener:
 
     def callback(data):
         self.pub.publish(data)
+        print "pubbed"
 
 if __name__ == '__main__':
     rospy.init_node('listener', anonymous=True)
