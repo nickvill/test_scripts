@@ -19,8 +19,8 @@ class zed_listener(object):
 
     def callback(self, msg):
 
-        self.pub.publish(msg)
-        print "pubbed"
+        # self.pub.publish(msg)
+        # print "pubbed"
 
         try:
             cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
