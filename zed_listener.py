@@ -27,7 +27,7 @@ class zed_listener(object):
         except CvBridgeError as e:
             print e
 
-        width, height = cv.GetSize(cv_image)
+        height, width, channels = cv_image.shape
 
         print 'width: ', width, 'height: ', height
         
