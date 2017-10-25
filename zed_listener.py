@@ -10,9 +10,21 @@ class zed_listener(object):
 
         self.pub = rospy.Publisher('depth', PointCloud2, queue_size=5)
 
-    def callback(data):
-        self.pub.publish(data)
+    def callback(msg):
+
+        self.pub.publish(msg)
         print "pubbed"
+
+        try:
+            cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
+        except CvBridgeError as e:
+            print e
+
+        width, height = cv.GetSize(cv_image)
+
+        print 'width: ', width, 'height: ', height
+        
+        
 
 if __name__ == '__main__':
     rospy.init_node('listener', anonymous=True)
