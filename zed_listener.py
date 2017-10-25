@@ -6,7 +6,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 import tf
-from tf2_msgs import TFMessage
+from tf2_msgs.msg import TFMessage
 
 
 class zed_listener(object):
@@ -15,7 +15,7 @@ class zed_listener(object):
 
         # self.sub = rospy.Subscriber('/zed/point_cloud/cloud_registered', PointCloud2, self.pc_callback, queue_size=5)
         self.sub = rospy.Subscriber('/zed/rgb/image_raw_color', Image, self.callback, queue_size=5)
-        # self.tfsub = rospy.Subscriber('/tf', TFMessage, self.broadcast, queue_size = 1)
+        self.tfsub = rospy.Subscriber('/tf', TFMessage, self.broadcast, queue_size = 1)
         self.pc_pub = rospy.Publisher('depth', PointCloud2, queue_size=5)
         self.img_pub = rospy.Publisher('zed_img', Image, queue_size=1)
         self.bridge = CvBridge()
@@ -39,6 +39,10 @@ class zed_listener(object):
         # height, width, channels = cv_image.shape
 
         # print 'width: ', width, 'height: ', height
+
+    def tf_callback(self, msg):
+        br = tf.TransformBroadcaster()
+        br.sendTransform(msg)
 
 
         
